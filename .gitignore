@@ -34,3 +34,6 @@ hs_err*.log
 /data/
 /metrics/
 docker/**/*.jar
+
+# Fn Server
+docker/local-config/fn/

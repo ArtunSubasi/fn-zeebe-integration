@@ -30,11 +30,30 @@ services:
       - spring.datasource.url=jdbc:h2:tcp://db:1521/zeebe-monitor
       - io.zeebe.monitor.connectionString=zeebe:26500
     ports:
-      - "8080:8080"
+      - "8081:8080"
     depends_on:
         - db
     networks:
         - zeebe-network
+
+  fnserver:
+    container_name: fnserver
+    image: artunsubasi/fnserver-zeebe:0.1.0
+    environment:
+      - FN_LOG_LEVEL=INFO
+      - FN_LB_URL=http://localhost:8080
+      - FN_API_SERVER_URL=http://localhost:8080
+      - FN_ZEEBE_GATEWAY_URL=zeebe:26500
+    volumes:
+      - ./fn/data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8080:8080"
+    depends_on:
+      - zeebe
+    networks:
+      - zeebe-network
+
 networks:
     zeebe-network:
       driver: bridge
