@@ -1,0 +1,7 @@
+schema_version: 20180708
+name: send-email
+version: 0.0.15
+runtime: go
+entrypoint: ./func
+config:
+  zeebe_job_type: send-email
