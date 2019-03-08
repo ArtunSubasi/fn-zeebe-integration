@@ -36,4 +36,4 @@ hs_err*.log
 docker/**/*.jar
 
 # Fn Server
-docker/local-config/fn/
+docker/local-config/fn-data/

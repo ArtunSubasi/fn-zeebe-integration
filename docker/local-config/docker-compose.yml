@@ -47,7 +47,7 @@ services:
       - FN_IOFS_DOCKER_PATH=$PWD/iofs
       - FN_IOFS_PATH=/iofs
     volumes:
-      - ./fn/data:/app/data
+      - ./fn-data:/app/data
       - ./iofs:/iofs
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
