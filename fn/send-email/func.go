@@ -13,17 +13,18 @@ func main() {
 	fdk.Handle(fdk.HandlerFunc(myHandler))
 }
 
-type Person struct {
-	Name string `json:"name"`
+type Customer struct {
+	Email string `json:"email"`
 }
 
 func myHandler(ctx context.Context, in io.Reader, out io.Writer) {
-	p := &Person{Name: "World"}
-	json.NewDecoder(in).Decode(p)
-	msg := struct {
-		Msg string `json:"message"`
-	}{
-		Msg: fmt.Sprintf("Hello %s", p.Name),
+	customer := &Customer{}
+	json.NewDecoder(in).Decode(customer)
+	if len(customer.Email) > 0 {
+		fmt.Println("Sent email:", customer.Email)
+	} else {
+		fdk.WriteStatus(out, 400)
+		io.WriteString(out, `{"error": "E-Mail not set"}`)
 	}
-	json.NewEncoder(out).Encode(&msg)
+	
 }

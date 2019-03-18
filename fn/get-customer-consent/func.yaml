@@ -1,6 +1,8 @@
 schema_version: 20180708
 name: get-customer-consent
-version: 0.0.2
+version: 0.0.14
 runtime: python
 entrypoint: /python/bin/fdk /function/func.py handler
 memory: 256
+config:
+  zeebe_job_type: get-customer-consent
