@@ -41,8 +41,8 @@ services:
     image: artunsubasi/fnserver-zeebe:0.1.4
     environment:
       - FN_LOG_LEVEL=INFO
-      - FN_LB_URL=fnserver:8080
-      - FN_API_SERVER_URL=fnserver:8080
+      - FN_LB_URL=http://localhost:8080
+      - FN_API_SERVER_URL=http://localhost:8080
       - FN_ZEEBE_GATEWAY_URL=zeebe:26500
       - FN_IOFS_DOCKER_PATH=$PWD/iofs
       - FN_IOFS_PATH=/iofs
