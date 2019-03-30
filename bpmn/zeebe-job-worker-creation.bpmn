@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" id="Definitions_1obtwyq" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Zeebe Modeler" exporterVersion="0.5.0">
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Fn function created">
+      <bpmn:outgoing>SequenceFlow_00awovf</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="ServiceTask_0siaju1" name="Read function configuration">
+      <bpmn:incoming>SequenceFlow_00awovf</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1korrhr</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_00awovf" sourceRef="StartEvent_1" targetRef="ServiceTask_0siaju1" />
+    <bpmn:exclusiveGateway id="ExclusiveGateway_04itqe2" name="Check configured HTTP triggers">
+      <bpmn:incoming>SequenceFlow_1korrhr</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1wqeuom</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_19lrsir</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_1korrhr" sourceRef="ServiceTask_0siaju1" targetRef="ExclusiveGateway_04itqe2" />
+    <bpmn:serviceTask id="ServiceTask_1wfuysh" name="Create a Zeebe job worker">
+      <bpmn:incoming>SequenceFlow_0a3yfgr</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_05ejt0f</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1wqeuom" name="Fn contains a least one HTTP trigger" sourceRef="ExclusiveGateway_04itqe2" targetRef="ExclusiveGateway_080augt" />
+    <bpmn:endEvent id="EndEvent_1mloemo" name="No Zeebe job worker created">
+      <bpmn:incoming>SequenceFlow_0oibbzp</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_19lrsir" name="Fn does not contain an HTTP trigger" sourceRef="ExclusiveGateway_04itqe2" targetRef="ExclusiveGateway_00f8ajc" />
+    <bpmn:exclusiveGateway id="ExclusiveGateway_080augt" name="Check configured Zeebe job type">
+      <bpmn:incoming>SequenceFlow_1wqeuom</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0a3yfgr</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_14soijl</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_0a3yfgr" name="Fn configuration contains a Zeebe job type" sourceRef="ExclusiveGateway_080augt" targetRef="ServiceTask_1wfuysh" />
+    <bpmn:exclusiveGateway id="ExclusiveGateway_00f8ajc">
+      <bpmn:incoming>SequenceFlow_19lrsir</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_14soijl</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0oibbzp</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_14soijl" name="Fn configuration does not contain a zeebe job type" sourceRef="ExclusiveGateway_080augt" targetRef="ExclusiveGateway_00f8ajc" />
+    <bpmn:sequenceFlow id="SequenceFlow_0oibbzp" sourceRef="ExclusiveGateway_00f8ajc" targetRef="EndEvent_1mloemo" />
+    <bpmn:endEvent id="EndEvent_0sun4rg" name="Zeebe job worker created">
+      <bpmn:incoming>SequenceFlow_05ejt0f</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_05ejt0f" sourceRef="ServiceTask_1wfuysh" targetRef="EndEvent_0sun4rg" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="208" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="199" y="145" width="55" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0siaju1_di" bpmnElement="ServiceTask_0siaju1">
+        <dc:Bounds x="286" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_00awovf_di" bpmnElement="SequenceFlow_00awovf">
+        <di:waypoint x="244" y="120" />
+        <di:waypoint x="286" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_04itqe2_di" bpmnElement="ExclusiveGateway_04itqe2" isMarkerVisible="true">
+        <dc:Bounds x="426" y="95" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="408" y="65" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1korrhr_di" bpmnElement="SequenceFlow_1korrhr">
+        <di:waypoint x="386" y="120" />
+        <di:waypoint x="426" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1wfuysh_di" bpmnElement="ServiceTask_1wfuysh">
+        <dc:Bounds x="836" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1wqeuom_di" bpmnElement="SequenceFlow_1wqeuom">
+        <di:waypoint x="476" y="120" />
+        <di:waypoint x="629" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="509" y="128" width="77" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1mloemo_di" bpmnElement="EndEvent_1mloemo">
+        <dc:Bounds x="977" y="304" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="959" y="347" width="73" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_19lrsir_di" bpmnElement="SequenceFlow_19lrsir">
+        <di:waypoint x="451" y="145" />
+        <di:waypoint x="451" y="322" />
+        <di:waypoint x="629" y="322" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="460" y="210" width="83" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_080augt_di" bpmnElement="ExclusiveGateway_080augt" isMarkerVisible="true">
+        <dc:Bounds x="629" y="95" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="611" y="65" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0a3yfgr_di" bpmnElement="SequenceFlow_0a3yfgr">
+        <di:waypoint x="679" y="120" />
+        <di:waypoint x="836" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="726" y="128" width="85" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_00f8ajc_di" bpmnElement="ExclusiveGateway_00f8ajc" isMarkerVisible="true">
+        <dc:Bounds x="629" y="297" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_14soijl_di" bpmnElement="SequenceFlow_14soijl">
+        <di:waypoint x="654" y="145" />
+        <di:waypoint x="654" y="297" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="667" y="208" width="90" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0oibbzp_di" bpmnElement="SequenceFlow_0oibbzp">
+        <di:waypoint x="679" y="322" />
+        <di:waypoint x="977" y="322" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0sun4rg_di" bpmnElement="EndEvent_0sun4rg">
+        <dc:Bounds x="977" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="952" y="145" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_05ejt0f_di" bpmnElement="SequenceFlow_05ejt0f">
+        <di:waypoint x="936" y="120" />
+        <di:waypoint x="977" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

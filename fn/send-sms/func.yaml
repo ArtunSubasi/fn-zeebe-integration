@@ -1,8 +1,12 @@
 schema_version: 20180708
 name: send-sms
-version: 0.0.4
+version: 0.0.10
 runtime: python
 entrypoint: /python/bin/fdk /function/func.py handler
 memory: 256
 config:
   zeebe_job_type: send-sms
+triggers:
+- name: send-sms
+  type: http
+  source: /send-sms

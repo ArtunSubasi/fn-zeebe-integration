@@ -13,7 +13,7 @@ def handler(ctx, data: io.BytesIO=None):
         print(str(ex))
 
     return response.Response(
-        ctx, response_data=json.dumps(
+        ctx, status_code=400, response_data=json.dumps(
             {"message": "Hello {0}".format(name)}),
         headers={"Content-Type": "application/json"}
     )
